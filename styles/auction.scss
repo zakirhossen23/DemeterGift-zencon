@@ -1,0 +1,124 @@
+@media only screen and (max-width: 600px) {
+    .auction.NFTs-container {
+        padding: 2%;
+        height: 100%;
+    }
+
+    .auction.ElementsContainer {
+        height: 33vw;
+    }
+
+    .auction.NFt-contain {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+    }
+
+    .auction.AuctionBidImage {
+        border-radius: 20px;
+        background: white;
+        width: 30vw;
+        height: 30vw;
+        aspect-ratio: 4;
+    }
+
+    .Auction.NFT-title {
+        margin: 0px;
+        font-size: 0.8rem;
+    }
+
+    .Auction.NFT-Description {
+        font-size: 0.7rem;
+    }
+
+    .Auction.EventContainer {
+        overflow: hidden;
+        padding: 0;
+        width: 100%;
+        height: 40vw;
+        color: white;
+    }
+
+    .Auction.Event-Image {
+        border-radius: 14px;
+        background: white;
+        width: 25vw;
+        height: 100%;
+        padding: 6px;
+    }
+    .Auction.Event-Title{
+        font-size: 0.8rem;
+    }
+}
+
+
+@media only screen and (min-width: 600px) {
+    .auction.NFTs-container {
+        padding: 0 5%;
+        height: 100%;
+    }
+
+    .auction.ElementsContainer {
+        height: 21vw;
+    }
+
+    .auction.NFt-contain {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 2%;
+        align-items: center;
+    }
+
+    .auction.AuctionBidImage {
+        border-radius: 20px;
+        background: white;
+        height: 100%;
+        width: 18vw;
+        aspect-ratio: 4;
+    }
+
+    .Auction.NFT-title {
+        margin: 0px;
+        font-size: calc(1vw * 2.5);
+    }
+
+    .Auction.NFT-Description {
+        font-size: calc(1.8vw);
+    }
+
+    .Auction.Grey-text {
+        font-size: 1.4vw;
+    }
+
+    .Auction.priceText {
+        font-size: 1.8vw;
+    }
+
+    .Auction.EventContainer {
+        overflow: inherit;
+        padding: 0 4%;
+        width: 100%;
+        height: 22vw;
+        color: white;
+    }
+
+    .Auction.Event-Image {
+        border-radius: 14px;
+        background: white;
+        width: 17vw;
+        height: 15vw;
+        aspect-ratio: 4;
+        padding: 6px;
+    }
+    .Auction.Event-Title{
+        font-size: calc(2.6vw);
+    }
+    .Auction.Event-small-Text{
+        font-size: 1.4vw;
+    }
+    .Auction.Event-goal-price{
+        font-size: 1.4vw;
+    }
+}

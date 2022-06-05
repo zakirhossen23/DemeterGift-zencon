@@ -20,9 +20,11 @@ export default function BidNFTModal({
 	const [Alert, setAlert] = useState('');
 
 	const Web3 = require("web3")
-	const ContractKit = require('@celo/contractkit')
-	const web3 = new Web3(window.ethereum)
-	const kit = ContractKit.newKitFromWeb3(web3)
+
+	const sleep = (milliseconds) => {
+		return new Promise(resolve => setTimeout(resolve, milliseconds))
+	}
+	
 
 	const [Amount, AmountInput] = UseFormInput({
 		type: 'text',
@@ -44,7 +46,7 @@ export default function BidNFTModal({
 	async function bidNFT() {
 
 		if (parseInt(Amount) < parseInt(Highestbid)) {
-			activateWarningModal(`Amount cannot be under ${Highestbid} CELO Euro (CEUR)`);
+			activateWarningModal(`Amount cannot be under ${Highestbid} ZENIQ`);
 			return;
 		}else{
 			var alertELM = document.getElementById("alert");
@@ -52,15 +54,14 @@ export default function BidNFTModal({
 		}
 		try	{
 			activateWorkingModal("Bidding....")
-			let cEURtoken = await kit.contracts.getStableToken('cEUR')
-			let CEURinFull = (Number(Amount) * 1000000000000000000).toLocaleString('fullwide', { useGrouping: false });
-			activateWorkingModal("Please confirm....")
-			let cEURtx = await cEURtoken.transfer(toAddress, CEURinFull).send({  from: senderAddress, gasPrice: 1000000000000, feeCurrency: cEURtoken.address })
-			let cEURReceipt = await cEURtx.waitReceipt()
-			activateWorkingModal("Pending transactions....")
 
-			console.log(cEURReceipt);
-			activateWorkingModal("Done! Adding into CELO Network...")
+			const Web3 = require("web3")
+            const web3 = new Web3(window.ethereum)
+			let AmountinFull = (Number(Amount) * 1000000000000000000).toLocaleString('fullwide', { useGrouping: false });
+			 activateWorkingModal("Confirming....")
+			const result = await web3.eth.sendTransaction({ from: senderAddress, to: toAddress, value: AmountinFull })
+			 console.log(result);
+			activateWorkingModal("Done! Adding into ZENIQ Network...")
 
 			const tokenUri = await contract.tokenURI(tokenId);
 			var parsed = await JSON.parse(tokenUri);
@@ -90,11 +91,19 @@ export default function BidNFTModal({
 			};
 			activateWorkingModal("Please confirm creating Bid...")
 
-			const result = await contract.createBid(tokenId, JSON.stringify(createdObject), JSON.stringify(parsed), eventId);
-			console.log(result);
-			activateWorkingModal("Success!")
+			const result2 = await contract.createBid(tokenId, JSON.stringify(createdObject), JSON.stringify(parsed), eventId);
+			activateWorkingModal("Confirming...")
+			const expectedBlockTime = 1000; 
+			let transactionReceipt = null
+			while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+				transactionReceipt = await web3.eth.getTransactionReceipt(result2.hash);
+				await sleep(expectedBlockTime)
+			}
 
+			console.log(transactionReceipt);
+			activateWorkingModal("Success!")
 			window.document.getElementsByClassName("btn-close")[0].click();
+			await sleep(200)
 			window.location.reload();
 		}catch(e){
 			activateWarningModal(`Error! Please try again!`);
@@ -131,7 +140,7 @@ export default function BidNFTModal({
 						{Alert}
 					</div>
 					<Form.Group className="mb-3" controlId="formGroupName">
-						<Form.Label>Bid Amount in CELO Euro (CEUR)</Form.Label>
+						<Form.Label>Bid Amount in ZENIQ</Form.Label>
 						{AmountInput}
 					</Form.Group>
 					<div className="d-grid">

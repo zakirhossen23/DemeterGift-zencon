@@ -15,14 +15,10 @@ export function Nav(): JSX.Element {
             window.document.getElementById("installMeta").style.display = "";
             return;
         }
-        if (window.ethereum.selectedAddress != null && window.localStorage.getItem("ConnectedMetaCelo") == "true") {
+        if (window.ethereum.selectedAddress != null && window.localStorage.getItem("ConnectedMetaZeniq") == "true") {
             const Web3 = require("web3")
-            const ContractKit = require('@celo/contractkit')
             const web3 = new Web3(window.ethereum)
-            const kit = ContractKit.newKitFromWeb3(web3)
-            let cEURtoken = await kit.contracts.getStableToken('cEUR')
-
-            let cEURBalance = await cEURtoken.balanceOf(window.ethereum.selectedAddress)
+            const balanceWeb = await web3.eth.getBalance(window.ethereum.selectedAddress)
 
             let subbing = 10;
 
@@ -33,7 +29,7 @@ export function Nav(): JSX.Element {
 
             await setAcc(window.ethereum.selectedAddress.toString().substring(0, subbing) + "...");
 
-            setBalance(cEURBalance / 1000000000000000000 + " cEUR");
+            setBalance(balanceWeb / 1000000000000000000 + " ZENIQ");
             setSigned(true);
             try {
 
@@ -72,8 +68,8 @@ export function Nav(): JSX.Element {
     const [modalShow, setModalShow] = useState(false);
 
 
-    async function onClickDisConnectCelo() {
-        window.localStorage.setItem("ConnectedMetaCelo", "")
+    async function onClickDisConnectZeqin() {
+        window.localStorage.setItem("ConnectedMetaZeniq", "")
         window.localStorage.setItem("Type", "")
         window.location.href = "/"
     }
@@ -114,7 +110,7 @@ export function Nav(): JSX.Element {
                                         {Balance}
                                     </div>
                                 </div>
-                                <button type="button" onClick={onClickDisConnectCelo} className="btn btn-logout" style={{ padding: 0 }}>
+                                <button type="button" onClick={onClickDisConnectZeqin} className="btn btn-logout" style={{ padding: 0 }}>
                                     <span className="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height={32} width={32} style={{ fill: "rgb(197, 228, 243)" }}>
                                             <path

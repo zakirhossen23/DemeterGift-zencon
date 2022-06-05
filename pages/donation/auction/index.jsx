@@ -187,11 +187,11 @@ export default function AuctionNFT(user) {
                         <h6 className='Auction Event-Title'>{title}</h6>
 
                         <div className='TextContainer'>
-                            <h7 className="Auction Event-small-Text">Goal: </h7>
-                            <h7 className="Auction Event-goal-price">$ {goalusd} ({goal} cEUR)</h7>
+                            <h6 className="Auction Event-small-Text">Goal: </h6>
+                            <h6 className="Auction Event-goal-price">{goal} ZENIQ</h6>
                         </div>
                         <div className='TextContainer'>
-                            <h7 className="Auction Event-small-Text" name='dateleft' date={date}>{dateleft}</h7>
+                            <h6 className="Auction Event-small-Text" name='dateleft' date={date}>{dateleft}</h6>
                         </div>
                     </div>
                 </div>
@@ -209,13 +209,13 @@ export default function AuctionNFT(user) {
                                 <div className="DetialsContainer" style={{ rowGap: "5px" }} >
                                     <h6 className='Auction NFT-title'>{listItem.name}</h6>
                                     <div className="TextContainer">
-                                        <h7 className="Auction NFT-Description" style={{ color: "#8B8B8B" }}>{listItem.description}</h7>
+                                        <h6 className="Auction NFT-Description" style={{ color: "#8B8B8B" }}>{listItem.description}</h6>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '11px' }}>
-                                    <h7 className="Auction Grey-text smallgrey">Current bid</h7>
-                                    <h6 className='Auction priceText bidprice'>$ {listItem.Bidprice} ({listItem.price} cEUR)</h6>
-                                    <h7 name="date" date={date} className="Auction Grey-text smallgrey">{dateleftBid}</h7>
+                                    <h6 className="Auction Grey-text smallgrey">Current bid</h6>
+                                    <h6 className='Auction priceText bidprice'>{listItem.price} ZENIQ</h6>
+                                    <h6 name="date" date={date} className="Auction Grey-text smallgrey">{dateleftBid}</h6>
                                 </div>
                                 <div className='Auction ElementBottomContainer'>
 

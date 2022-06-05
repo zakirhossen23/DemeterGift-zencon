@@ -33,7 +33,7 @@ export default function CreateEvents() {
     const [EventGoal, EventGoalInput] = UseFormInput({
         defaultValue: "",
         type: 'text',
-        placeholder: 'Event Goal in CELO Euro (CEUR)',
+        placeholder: 'Event Goal in ZENIQ',
         id: 'goal',
     });
 

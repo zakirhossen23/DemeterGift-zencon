@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract CeloERC721 is ERC721 {
+contract ZeniqERC721 is ERC721 {
 	uint256 private _tokenIds;
 	uint256 private _bidIds;
 	uint256 private _eventIds;

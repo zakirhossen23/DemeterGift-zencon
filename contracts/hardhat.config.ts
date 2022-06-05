@@ -6,11 +6,11 @@ dotenv.config();
 
 module.exports = {
 	networks: {
-		celo_alfajores: {
-			url: "https://alfajores-forno.celo-testnet.org",
-			accounts: [`8470f20322e3e7b081ddb60179eb483e14c07022986d1b0c1c5da61ab729add4`],
-			chainId: 44787,
-			gasPrice: 1000000000
+		zeniq: {
+			url: "https://smart1.zeniq.network:9545",
+			accounts: [`a9cba477f6702e7b175af9914501919d3a3e5a751f08ac3f9b752e56e78d0988`],
+			chainId: 383414847825,
+			gasPrice: 10000000000
 		  },
 		
 	},

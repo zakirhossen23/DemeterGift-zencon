@@ -4,15 +4,15 @@ const func = async (hre) => {
 	const { deploy } = deployments;
 	const { deployer } = await getNamedAccounts();
 
-	const name = 'CUSD';
-	const symbol = 'cUSD';
+	const name = 'ZENIQ';
+	const symbol = 'ZENIQ';
 
-	await deploy('CeloERC721', {
+	await deploy('ZeniqERC721', {
 		from: deployer,
 		args: [name, symbol],
 		log: true,
 	});
 };
 
-func.tags = ['cUSD'];
+func.tags = ['ZENIQ'];
 module.exports = func;

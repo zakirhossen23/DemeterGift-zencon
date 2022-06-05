@@ -62,11 +62,6 @@ export default function Donation() {
                 const arr = [];
                 for (let i = 0; i < Number(totalEvent); i++) {
                     const value = await contract.eventURI(i);
-
-                    var da = Math.floor(d / (1000 * 60 * 60 * 24));
-                    var h = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var m = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
-
                     if (value) {
                         const object = JSON.parse(value);
                         var c = new Date(object.properties.Date.description).getTime();
@@ -163,7 +158,7 @@ export default function Donation() {
                                 <h6 className='donation event-details-title'>{listItem.Title}</h6>
                                 <div style={{ display: "flex", "whiteSpace": "pre-wrap" }}>
                                     <h6 className='donation event-goal-price' >Goal:  </h6>
-                                    <h6 className='donation event-goal-price' >${listItem.Goalusd} ({listItem.Goal} cEUR)</h6>
+                                    <h6 className='donation event-goal-price' >{listItem.Goal} ZENIQ</h6>
                                 </div>
 
                             </div>

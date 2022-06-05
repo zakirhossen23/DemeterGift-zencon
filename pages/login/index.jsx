@@ -19,35 +19,35 @@ export default function Login() {
 
     async function TypeSet(e) {
         window.localStorage.setItem("Type", e.target.getAttribute("type"));
-        await onClickConnectCelo()
+        await onClickConnect()
         window.location.href = redirecting;
     }
-    //Celo
-    async function onClickConnectCelo() {
+    //Zeniq
+    async function onClickConnect() {
         let result = await window.ethereum.request({ method: 'eth_requestAccounts' });
         result;
         try {
             const getacc = await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0xaef3', }], //44787
+                params: [{ chainId: '0x59454E4951', }], //383414847825
             });
             getacc;
         } catch (switchError) {
             // This error code indicates that the chain has not been added to MetaMask.
             if (switchError.code === 4902) {
-                try {
+                try { 
                     await window.ethereum.request({
                         method: 'wallet_addEthereumChain',
                         params: [
                             {
-                                chainId: '0xaef3', //44787
-                                chainName: 'Alfajores Celo Testnet',
+                                chainId: '0x59454E4951', //383414847825
+                                chainName: 'Zeniq Smart Chain',
                                 nativeCurrency: {
-                                    name: 'CELO',
-                                    symbol: 'CELO',
+                                    name: 'ZENIQ',
+                                    symbol: 'ZENIQ',
                                     decimals: 18,
                                 },
-                                rpcUrls: ['https://alfajores-forno.celo-testnet.org'],
+                                rpcUrls: ['https://smart1.zeniq.network:9545'],
                             },
                         ],
                     });
@@ -58,7 +58,7 @@ export default function Login() {
             }
             // handle other "switch" errors
         }
-        window.localStorage.setItem("ConnectedMetaCelo", "true")
+        window.localStorage.setItem("ConnectedMetaZeniq", "true")
     }
     const formatter = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2,

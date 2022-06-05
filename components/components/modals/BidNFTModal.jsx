@@ -45,6 +45,8 @@ export default function BidNFTModal({
 
 	async function bidNFT() {
 
+		var BidNFTBTN = document.getElementById("bidNFTBTN")
+		BidNFTBTN.disabled = false;
 		if (parseInt(Amount) < parseInt(Highestbid)) {
 			activateWarningModal(`Amount cannot be under ${Highestbid} ZENIQ`);
 			return;
@@ -58,7 +60,7 @@ export default function BidNFTModal({
 			const Web3 = require("web3")
             const web3 = new Web3(window.ethereum)
 			let AmountinFull = (Number(Amount) * 1000000000000000000).toLocaleString('fullwide', { useGrouping: false });
-			 activateWorkingModal("Confirming....")
+			 activateWorkingModal("A moment please")
 			const result = await web3.eth.sendTransaction({ from: senderAddress, to: toAddress, value: AmountinFull })
 			 console.log(result);
 			activateWorkingModal("Done! Adding into ZENIQ Network...")
@@ -92,7 +94,7 @@ export default function BidNFTModal({
 			activateWorkingModal("Please confirm creating Bid...")
 
 			const result2 = await contract.createBid(tokenId, JSON.stringify(createdObject), JSON.stringify(parsed), eventId);
-			activateWorkingModal("Confirming...")
+			activateWorkingModal("A moment please")
 			const expectedBlockTime = 1000; 
 			let transactionReceipt = null
 			while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
@@ -103,6 +105,7 @@ export default function BidNFTModal({
 			console.log(transactionReceipt);
 			activateWorkingModal("Success!")
 			window.document.getElementsByClassName("btn-close")[0].click();
+			BidNFTBTN.disabled = true;
 			await sleep(200)
 			window.location.reload();
 		}catch(e){
@@ -144,7 +147,7 @@ export default function BidNFTModal({
 						{AmountInput}
 					</Form.Group>
 					<div className="d-grid">
-						<Button variant="primary" onClick={bidNFT}>
+						<Button variant="primary" id="bidNFTBTN" onClick={bidNFT}>
 							Bid NFT
 						</Button>
 

@@ -145,7 +145,13 @@ export default function CreateEvents() {
         </>)
     }
     function FilehandleChange(event) {
-        document.getElementById("js-file-name").innerText = event.target.files[0].name
+       var namefileInput =  document.getElementById("js-file-name")
+      var allNames = []
+      for (let index = 0; index < event.target.files.length; index++) {
+          const element = event.target.files[index].name;
+          allNames.push(element)
+      }
+       namefileInput.innerText = allNames.join("\n")
         setEventImage(event.target.files)
     }
 

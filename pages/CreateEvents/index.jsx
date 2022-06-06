@@ -11,10 +11,10 @@ import { NFTStorage, File } from 'nft.storage'
 
 export default function CreateEvents() {
     const { contract, signerAddress } = useContract('ERC721');
+    const [EventImage, setEventImage] = useState([]);
     if (isServer()) return null;
     const NFT_STORAGE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDJDMDBFOGEzZEEwNzA5ZkI5MUQ1MDVmNDVGNUUwY0Q4YUYyRTMwN0MiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1NDQ3MTgxOTY2NSwibmFtZSI6IlplbmNvbiJ9.6znEiSkiLKZX-a9q-CKvr4x7HS675EDdaXP622VmYs8'
     const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
-    const [EventImage, setEventImage] = useState([]);
 
     const [EventTitle, EventTitleInput] = UseFormInput({
         defaultValue: "",

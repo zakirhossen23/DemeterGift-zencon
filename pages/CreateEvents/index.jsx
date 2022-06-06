@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Button from 'react-bootstrap/Button';
 import UseFormInput from '../../components/components/UseFormInput';
@@ -6,11 +6,15 @@ import useContract from '../../services/useContract';
 import { Header } from '../../components/layout/Header'
 import NavLink from 'next/link';
 import isServer from '../../components/isServer';
+import { NFTStorage, File } from 'nft.storage'
+
 
 export default function CreateEvents() {
     const { contract, signerAddress } = useContract('ERC721');
     if (isServer()) return null;
-
+    const NFT_STORAGE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDJDMDBFOGEzZEEwNzA5ZkI5MUQ1MDVmNDVGNUUwY0Q4YUYyRTMwN0MiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1NDQ3MTgxOTY2NSwibmFtZSI6IlplbmNvbiJ9.6znEiSkiLKZX-a9q-CKvr4x7HS675EDdaXP622VmYs8'
+    const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+    const [EventImage, setEventImage] = useState([]);
 
     const [EventTitle, EventTitleInput] = UseFormInput({
         defaultValue: "",
@@ -55,10 +59,17 @@ export default function CreateEvents() {
         downloadURI(fileDownloadUrl, "Generated Plugin.html");
         console.log(output);
     }
-
-
     async function createEvent() {
-
+        var CreateEVENTBTN = document.getElementById("CreateEVENTBTN")
+        CreateEVENTBTN.disabled = true
+        let allFiles = []
+        for (let index = 0; index < EventImage.length; index++) {
+            const element = EventImage[index];
+            const metadata = await client.storeBlob(element)
+            const urlImageEvent = "https://" + metadata + ".ipfs.nftstorage.link"
+            allFiles.push(urlImageEvent)
+            console.log(urlImageEvent)
+        }
 
         const createdObject = {
             title: 'Asset Metadata',
@@ -82,7 +93,7 @@ export default function CreateEvents() {
                 },
                 logo: {
                     type: 'string',
-                    description: EventLogo
+                    description: allFiles[0]
                 },
                 wallet: {
                     type: 'string',
@@ -91,9 +102,12 @@ export default function CreateEvents() {
                 typeimg: {
                     type: 'string',
                     description: "Event"
-                }
+                },
+                allFiles
             }
         };
+
+
         try {
             const result = await contract.createEvent(
                 JSON.stringify(createdObject)
@@ -111,31 +125,29 @@ export default function CreateEvents() {
         }
         window.location.href = ('/donation');
     }
-    const [EventLogo, EventLogoInput] = UseFormInput({
-        defaultValue: "",
-        type: 'text',
-        placeholder: 'Event Logo Link',
-        id: 'logo'
-    });
 
-function CreateEventBTN(){
-    if (window.localStorage.getItem("Type") != "manager" && typeof window.ethereum !== 'undefined') {
+
+    function CreateEventBTN() {
+        if (window.localStorage.getItem("Type") != "manager" && typeof window.ethereum !== 'undefined') {
+            return (<>
+                <NavLink href="/login?[/CreateEvents]">
+                    <Button style={{ margin: "17px 0 0px 0px", width: "100%" }}>
+                        Login as Event Manager
+                    </Button>
+                </NavLink>
+
+            </>);
+        }
         return (<>
-            <NavLink href="/login?[/CreateEvents]">
-                <Button style={{ margin: "17px 0 0px 0px", width: "100%" }}>
-                    Login as Event Manager
-                </Button>
-            </NavLink>
-
-        </>);
+            <Button id="CreateEVENTBTN" style={{ margin: "17px 0 0px 0px", width: "100%" }} onClick={createEvent}>
+                Create Event
+            </Button>
+        </>)
     }
-    return (<>
-        <Button style={{ margin: "17px 0 0px 0px", width: "100%" }} onClick={createEvent}>
-            Create Event
-        </Button>
-    </>)
-}
-
+    function FilehandleChange(event) {
+        document.getElementById("js-file-name").innerText = event.target.files[0].name
+        setEventImage(event.target.files)
+    }
 
     return (
         <><>
@@ -165,9 +177,24 @@ function CreateEventBTN(){
                             <h6>Event Goal</h6>
                             {EventGoalInput}
                         </div>
-                        <div style={{ margin: "18px 0" }}>
-                            <h6>Event Logo Link</h6>
-                            {EventLogoInput}
+                        <div style={{ height: '240px' }}>
+                            <div className="Event-Create-file-container">
+                                <input class="file-input" onChange={FilehandleChange} id="EventImage" name="EventImage" type="file" multiple="multiple" />
+                                <div className="Event-Create-file-content">
+                                    <div className="file-infos">
+                                        <p className="file-icon">
+                                            <i className="fas fa-file-upload fa-7x" />
+                                            <span className="icon-shadow" />
+                                            <span>
+                                                Click to browse<span className="has-drag">or drop file here</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <p className="file-name" id="js-file-name">
+                                        No file selected
+                                    </p>
+                                </div>
+                            </div>
                         </div>
 
                         <div style={{
@@ -181,7 +208,7 @@ function CreateEventBTN(){
                             <input type="checkbox" id="plugin" />
                             <h5 style={{ margin: '0' }}>Generate Plugin?</h5>
                         </div>
-                        <CreateEventBTN/>
+                        <CreateEventBTN />
                     </div>
                 </div>
             </div>

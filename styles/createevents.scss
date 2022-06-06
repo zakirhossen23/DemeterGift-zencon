@@ -12,3 +12,37 @@
     }
    }
    
+   .Event-Create-file-container {
+    font-family: sans-serif;
+    font-size: 13pt;
+    height: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    position: relative;
+    bottom: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, #0d6efd 0, #121f29 100%);
+    border: 5px dashed white;
+    text-align: center;
+    color: white;
+    z-index: 20;
+    transition: all 0.3s ease-out;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+}
+
+input#EventImage {
+  opacity: 0;
+  position: relative;
+  z-index: 20;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.Event-Create-file-content {
+  top: 40%;
+  width: 100%;
+  user-select: none;
+  position: absolute;
+}

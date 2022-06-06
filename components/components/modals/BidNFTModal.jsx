@@ -46,7 +46,7 @@ export default function BidNFTModal({
 	async function bidNFT() {
 
 		var BidNFTBTN = document.getElementById("bidNFTBTN")
-		BidNFTBTN.disabled = false;
+		BidNFTBTN.disabled = true;
 		if (parseInt(Amount) < parseInt(Highestbid)) {
 			activateWarningModal(`Amount cannot be under ${Highestbid} ZENIQ`);
 			return;
@@ -105,7 +105,7 @@ export default function BidNFTModal({
 			console.log(transactionReceipt);
 			activateWorkingModal("Success!")
 			window.document.getElementsByClassName("btn-close")[0].click();
-			BidNFTBTN.disabled = true;
+			BidNFTBTN.disabled = false;
 			await sleep(200)
 			window.location.reload();
 		}catch(e){

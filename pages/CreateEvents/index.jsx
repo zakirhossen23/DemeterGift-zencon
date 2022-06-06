@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Button from 'react-bootstrap/Button';
 import UseFormInput from '../../components/components/UseFormInput';
+import UseFormTextArea from '../../components/components/UseFormTextArea';
 import useContract from '../../services/useContract';
 import { Header } from '../../components/layout/Header'
 import NavLink from 'next/link';
@@ -22,11 +23,11 @@ export default function CreateEvents() {
         placeholder: 'Event Title',
         id: ''
     });
-    const [EventDescription, EventDescriptionInput] = UseFormInput({
+    const [EventDescription, EventDescriptionInput] = UseFormTextArea({
         defaultValue: "",
-        type: 'text',
         placeholder: 'Event Description',
-        id: ''
+        id: '',
+        rows: 4
     });
     const [EventDate, EventDateInput] = UseFormInput({
         defaultValue: "",
@@ -176,6 +177,11 @@ export default function CreateEvents() {
                         </div>
 
                         <div style={{ margin: "18px 0" }}>
+                            <h6>Event Description</h6>
+                            {EventDescriptionInput}
+                        </div>
+
+                        <div style={{ margin: "18px 0" }}>
                             <h6>Event End Date</h6>
                             {EventDateInput}
                         </div>
@@ -183,7 +189,7 @@ export default function CreateEvents() {
                             <h6>Event Goal</h6>
                             {EventGoalInput}
                         </div>
-                        <div style={{ height: '240px' }}>
+                        <div style={{ height: '100px' }}>
                             <div className="Event-Create-file-container">
                                 <input className="file-input" onChange={FilehandleChange} id="EventImage" name="EventImage" type="file" multiple="multiple" />
                                 <div className="Event-Create-file-content">

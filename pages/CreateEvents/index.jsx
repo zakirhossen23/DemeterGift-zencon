@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Button from 'react-bootstrap/Button';
 import UseFormInput from '../../components/components/UseFormInput';
@@ -179,7 +179,7 @@ export default function CreateEvents() {
                         </div>
                         <div style={{ height: '240px' }}>
                             <div className="Event-Create-file-container">
-                                <input class="file-input" onChange={FilehandleChange} id="EventImage" name="EventImage" type="file" multiple="multiple" />
+                                <input className="file-input" onChange={FilehandleChange} id="EventImage" name="EventImage" type="file" multiple="multiple" />
                                 <div className="Event-Create-file-content">
                                     <div className="file-infos">
                                         <p className="file-icon">

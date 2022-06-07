@@ -203,9 +203,9 @@ export default function AuctionNFT(user) {
                 <div className="p-campaign-collage color-background-blue" >
                     <div className="image-16by9">
 
-                        <SlideShow images={imageList} />
+                        {/* <SlideShow images={imageList} /> */}
 
-                        {/* <img className="a-image a-image--background" src={logo} /> */}
+                        <img className="a-image a-image--background" src={logo} />
                     </div>
                 </div>
                 <header className="p-campaign-header" >

@@ -68,7 +68,7 @@ export default function CreateEvents() {
             const element = EventImage[index];
             const metadata = await client.storeBlob(element)
             const urlImageEvent = "https://" + metadata + ".ipfs.nftstorage.link"
-            allFiles.push(urlImageEvent)
+            allFiles.push([urlImageEvent,element.type])
             console.log(urlImageEvent)
         }
 
@@ -94,7 +94,7 @@ export default function CreateEvents() {
                 },
                 logo: {
                     type: 'string',
-                    description: allFiles[0]
+                    description:  allFiles[0][0]
                 },
                 wallet: {
                     type: 'string',

@@ -4,6 +4,7 @@ import Head from 'next/head';
 import BidNFTModal from '../../../components/components/modals/BidNFTModal';
 import ViewBidNFTModal from '../../../components/components/modals/ViewBidNFTModal';
 import DonateNFTModal from '..//..//..//components/components/modals/DonateNFTModal';
+import SlideShow from '..//..//..//components/components/Slideshow';
 
 import useContract from '../../../services/useContract';
 import { Header } from '../../../components/layout/Header'
@@ -15,6 +16,7 @@ export default function AuctionNFT(user) {
     const router = useRouter();
     const [eventId, setEventId] = useState(-1);
     const [list, setList] = useState([]);
+    const [imageList, setimageList] = useState([]);
     const [tokenName, setTokenName] = useState('');
     const [tokenSymbol, setTokenSymbol] = useState('');
     const [title, setTitle] = useState('');
@@ -22,7 +24,7 @@ export default function AuctionNFT(user) {
     const [goal, setgoal] = useState('');
     const [EventEarned, setEventEarned] = useState('');
     const [EventDescription, setEventDescription] = useState('');
-    const [dateleft, setdateleft] = useState(''); 
+    const [dateleft, setdateleft] = useState('');
     const [SelectedendDate, setSelectedendDate] = useState('');
     const [date, setdate] = useState('');
     const [dateleftBid, setdateleftBid] = useState('');
@@ -37,7 +39,7 @@ export default function AuctionNFT(user) {
     const [modalShow, setModalShow] = useState(false);
     const [ViewmodalShow, setViewModalShow] = useState(false);
     const [DonatemodalShow, setDonateModalShow] = useState(false);
-    
+
     const formatter = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -102,7 +104,7 @@ export default function AuctionNFT(user) {
                         try { pricedes1 = formatter.format(Number(object.properties.price.description * 1.10)) } catch (ex) { }
                         const TokenId = Number(await contract.gettokenIdByUri(obj));
                         totalEarned += Number(object.properties.price.description)
-                        console.log(TokenId);
+                   
                         arr.push({
                             Id: TokenId,
                             name: object.properties.name.description,
@@ -122,8 +124,9 @@ export default function AuctionNFT(user) {
 
 
                 setEventuri(value);
-
                 const object = JSON.parse(value);
+                setimageList( object.properties.allFiles);
+                console.log(imageList);
                 setTitle(object.properties.Title.description);
                 setselectedAddress(object.properties.wallet.description);
                 setgoalusd(formatter.format(Number(object.properties.Goal.description * 1.10)));
@@ -194,30 +197,15 @@ export default function AuctionNFT(user) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header></Header>
-            {/* <div className="row Auction EventContainer" >
-                <div style={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center', padding: '7px' }}>
-                    <img src={logo} className="Auction Event-Image AuctionImage" />
-                    <div className="DetialsContainer">
-                        <h6 className='Auction Event-Title'>{title}</h6>
 
-                        <div className='TextContainer'>
-                            <h6 className="Auction Event-small-Text">Goal: </h6>
-                            <h6 className="Auction Event-goal-price">{goal} ZENIQ</h6>
-                        </div>
-                        <div className='TextContainer'>
-                            <h6 className="Auction Event-small-Text" name='dateleft' date={date}>{dateleft}</h6>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
             <div className="p-campaign" data-view-id="pg_donate_index" >
                 <div className="p-campaign-collage color-background-blue" >
-                    <div className="image-16by9 m-collage-image">
-          
+                    <div className="image-16by9">
 
+                        <SlideShow images={imageList} />
 
-                        <img className="a-image a-image--background" src={logo} />
+                        {/* <img className="a-image a-image--background" src={logo} /> */}
                     </div>
                 </div>
                 <header className="p-campaign-header" >
@@ -232,7 +220,7 @@ export default function AuctionNFT(user) {
                                 <progress
                                     className="a-progress-bar a-progress-bar--green"
                                     max={100}
-                                    value={(EventEarned * 100)/goal}
+                                    value={(EventEarned * 100) / goal}
                                 />
                                 <h2 className="m-progress-meter-heading" >
                                     {EventEarned}
@@ -245,8 +233,8 @@ export default function AuctionNFT(user) {
                                 <a
                                     className="p-campaign-share-button-exp mb2x m-auto hrt-gradient-button hrt-gradient-button--gradient-orange hrt-gradient-button--full hrt-gradient-button--shadow hrt-base-button"
                                     data-element-id="btn_donate"
-                                      data-analytic-event-listener="true"
-                                      onClick={activateDonateNFTModal}
+                                    data-analytic-event-listener="true"
+                                    onClick={activateDonateNFTModal}
                                 >
                                     <span className="hrt-gradient-button-text">Donate NFT</span>
                                 </a>
@@ -283,7 +271,7 @@ export default function AuctionNFT(user) {
                         }}
                     >
                         <div className="o-campaign-story mt3x" >
-                           {EventDescription}
+                            {EventDescription}
                         </div>
                     </div>
                 </div>
@@ -368,7 +356,7 @@ export default function AuctionNFT(user) {
                 id={selectid}
                 title={selecttitle}
             />
-            
+
             <DonateNFTModal
                 show={DonatemodalShow}
                 onHide={() => {

@@ -254,6 +254,8 @@ contract ZeniqERC721 is ERC721 {
 			string(_BidURI)
 		];
 	} 
+
+	
 	function createBid(
 		uint256 _tokenId,
 		string memory _bidURI,

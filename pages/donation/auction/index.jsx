@@ -104,7 +104,7 @@ export default function AuctionNFT(user) {
                         try { pricedes1 = formatter.format(Number(object.properties.price.description * 1.10)) } catch (ex) { }
                         const TokenId = Number(await contract.gettokenIdByUri(obj));
                         totalEarned += Number(object.properties.price.description)
-                   
+
                         arr.push({
                             Id: TokenId,
                             name: object.properties.name.description,
@@ -125,7 +125,7 @@ export default function AuctionNFT(user) {
 
                 setEventuri(value);
                 const object = JSON.parse(value);
-                setimageList( object.properties.allFiles);
+                setimageList(object.properties.allFiles);
                 console.log(imageList);
                 setTitle(object.properties.Title.description);
                 setselectedAddress(object.properties.wallet.description);
@@ -201,12 +201,11 @@ export default function AuctionNFT(user) {
 
             <div className="p-campaign" data-view-id="pg_donate_index" >
                 <div className="p-campaign-collage color-background-blue" >
-                    <div className="image-16by9">
-
-                        {/* <SlideShow images={imageList} /> */}
-
-                        <img className="a-image a-image--background" src={logo} />
-                    </div>
+                <div className="image-16by9 m-collage-image">
+          
+          
+                                  <img className="a-image a-image--background" src={logo} />
+                              </div>
                 </div>
                 <header className="p-campaign-header" >
                     <h1 className="mb0 a-campaign-title">

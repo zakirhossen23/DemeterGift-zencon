@@ -68,7 +68,7 @@ export default function CreateEvents() {
             const element = EventImage[index];
             const metadata = await client.storeBlob(element)
             const urlImageEvent = "https://" + metadata + ".ipfs.nftstorage.link"
-            allFiles.push([urlImageEvent,element.type])
+            allFiles.push(urlImageEvent)
             console.log(urlImageEvent)
         }
 
@@ -94,7 +94,7 @@ export default function CreateEvents() {
                 },
                 logo: {
                     type: 'string',
-                    description:  allFiles[0][0]
+                    description: allFiles[0]
                 },
                 wallet: {
                     type: 'string',
@@ -146,25 +146,14 @@ export default function CreateEvents() {
         </>)
     }
     function FilehandleChange(event) {
-        var namefileInput = document.getElementById("js-file-name")
-        var allNames = []
-        var FilesImage = []
-        var VideosAll = []
-        var VideosAllFiles = []
-        var allVideoName = []
-        for (let index = 0; index < event.target.files.length; index++) {
-            const element = event.target.files[index].name;
-            if (event.target.files[index].type.includes("video") !== true) {
-                allNames.push(element)
-                FilesImage.push(event.target.files[index])
-            }else  {
-                VideosAll.push(element)
-                VideosAllFiles.push(event.target.files[index])
-            }
-        }
-        allVideoName = allNames.concat(VideosAll)
-        namefileInput.innerText = allVideoName.join("\n")
-        setEventImage(FilesImage.concat(VideosAllFiles))
+       var namefileInput =  document.getElementById("js-file-name")
+      var allNames = []
+      for (let index = 0; index < event.target.files.length; index++) {
+          const element = event.target.files[index].name;
+          allNames.push(element)
+      }
+       namefileInput.innerText = allNames.join("\n")
+        setEventImage(event.target.files)
     }
 
     return (

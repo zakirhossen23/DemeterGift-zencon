@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import isServer from '../../../components/isServer';
+
 import UseFormInput from '../UseFormInput';
 import { useRouter } from 'next/router';
-import { NFTStorage, File } from 'nft.storage'
 
 export default function DonateNFTModal({
 	show,
@@ -19,10 +18,6 @@ export default function DonateNFTModal({
 }) {
 
 	const router = useRouter();
-	const [Image, setImage] = useState([]);
-	if (isServer()) return null;
-	const NFT_STORAGE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDJDMDBFOGEzZEEwNzA5ZkI5MUQ1MDVmNDVGNUUwY0Q4YUYyRTMwN0MiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1NDQ3MTgxOTY2NSwibmFtZSI6IlplbmNvbiJ9.6znEiSkiLKZX-a9q-CKvr4x7HS675EDdaXP622VmYs8'
-	const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 
 	console.log(contract);
 	const [name, nameInput] = UseFormInput({
@@ -46,34 +41,15 @@ export default function DonateNFTModal({
 		type: 'text',
 		placeholder: 'Enter NFT address',
 	});
+	const [Cryptopunkaddress, CryptopunkaddressInput] = UseFormInput({
+		type: 'text',
+		placeholder: 'Enter Cryptopunk address',
+	});
 
-	function FilehandleChange(event) {
-		var namefileInput = document.getElementById("js-file-name")
-		var allNames = []
-		for (let index = 0; index < event.target.files.length; index++) {
-			const element = event.target.files[index].name;
-			allNames.push(element)
-		}
-		namefileInput.innerText = allNames.join("\n")
-		setImage(event.target.files)
-	}
 	async function createNFT() {
-
-		var CreateDonateBTN = document.getElementById("CreateDonateBTN")
-		CreateDonateBTN.disabled = true
-		let allFiles = []
-		for (let index = 0; index < Image.length; index++) {
-			const element = Image[index];
-			const metadata = await client.storeBlob(element)
-			const urlImage = "https://" + metadata + ".ipfs.nftstorage.link"
-			allFiles.push(urlImage)
-			console.log(urlImage)
-		}
-
-		let Logourl = allFiles[0];
-		console.log("logo = >",Logourl)
+		let Logourl = url;
 		var tokenAddress = NFTaddress;
-
+		
 
 		const createdObject = {
 			title: 'Asset Metadata',
@@ -121,9 +97,9 @@ export default function DonateNFTModal({
 			EventID
 		);
 		await window.document.getElementsByClassName("btn-close")[0].click();
-		window.location.href = `/donation/auction?[${EventID}]`;
+		window.location.href=`/donation/auction?[${EventID}]`;
 		console.log(result);
-
+		
 
 	}
 
@@ -156,33 +132,18 @@ export default function DonateNFTModal({
 						{priceInput}
 					</Form.Group>
 
-					<div style={{ height: '100px' }}>
-						<div className="Event-Create-file-container">
-							<input className="file-input" onChange={FilehandleChange} id="EventImage" name="DonateImage" type="file" />
-							<div className="Event-Create-file-content">
-								<div className="file-infos">
-									<p className="file-icon">
-										<i className="fas fa-file-upload fa-7x" />
-										<span className="icon-shadow" />
-										<span>
-											Click to browse<span className="has-drag">or drop file here</span>
-										</span>
-									</p>
-								</div>
-								<p className="file-name" id="js-file-name">
-									No file selected
-								</p>
-							</div>
-						</div>
-					</div>
 					<Form.Group className="mb-3" controlId="formGroupImageUrl">
-						<Form.Label>NFT address</Form.Label>
-						{NFTaddressInput}
+						<Form.Label>Enter image URL</Form.Label>
+						{urlInput}
 					</Form.Group>
-
+					<Form.Group className="mb-3" controlId="formGroupImageUrl">
+							<Form.Label>NFT address</Form.Label>
+							{NFTaddressInput}
+						</Form.Group>
+					
 
 					<div className="d-grid">
-						<Button variant="primary" id='CreateDonateBTN' onClick={createNFT}>
+						<Button variant="primary" onClick={createNFT}>
 							Donate {type}
 						</Button>
 					</div>

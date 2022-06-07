@@ -114,11 +114,11 @@ export default function CreateEvents() {
                 JSON.stringify(createdObject)
             );
 
-            console.log(result);
-            let eventid = await contract.totalEvent();
-            if (document.getElementById("plugin").checked) {
-                await CreatePlugin(`http://${window.location.host}/donation/auction?[${eventid}]`);
-            }
+            // console.log(result);
+            // let eventid = await contract.totalEvent();
+            // if (document.getElementById("plugin").checked) {
+            //     await CreatePlugin(`http://${window.location.host}/donation/auction?[${eventid}]`);
+            // }
 
 
         } catch {

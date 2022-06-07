@@ -58,6 +58,7 @@ contract ZeniqERC721 is ERC721 {
 
 		return _eventIds;
 	}
+	
 
 	function gettokenIdByUri(string memory _tokenURI)
 		public

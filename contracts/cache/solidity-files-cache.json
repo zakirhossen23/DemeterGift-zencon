@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "H:\\Codes\\Next\\DemeterGift-zencon\\contracts\\contracts\\ZeniqERC721.sol": {
-      "lastModificationDate": 1654618281531,
-      "contentHash": "adea4be0c0386f43f6b85da4352ec43d",
+      "lastModificationDate": 1654619257519,
+      "contentHash": "1d01c0b22c97305470ec0938af37a7ab",
       "sourceName": "contracts/ZeniqERC721.sol",
       "solcConfig": {
         "version": "0.8.6",

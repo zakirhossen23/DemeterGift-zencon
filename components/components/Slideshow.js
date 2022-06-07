@@ -50,7 +50,7 @@ const Slideshow = (images = []) => {
 							height: "100%"
 						}}>
 							<iframe
-								width={560}
+								width="100%"
 								height={315}
 								src={each}
 								frameBorder={0}
@@ -62,8 +62,7 @@ const Slideshow = (images = []) => {
 										"0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
 								}}
 								allowFullScreen=""
-							/>
-
+					></iframe>
 						</div>
 					))}
 				</Zoom>
